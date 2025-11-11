@@ -1,12 +1,14 @@
 console.log("script.js loaded");
 
-const endpoint = "https://api.giphy.com/v1/gifs/search?api_key=tACXoZ7Sg3YwaD1NqcpLUkqSLcTQGDFu&q=cats&limit=25&offset=0&rating=g&lang=en&bundle=messaging_non_clips";
-
 const gifContainer = document.querySelector("#gif-container");
-const fetchButton = document.querySelector("#fetch-gif-btn"); 
+const fetchButton = document.querySelector("#fetch-gif-btn");
+const searchInput = document.querySelector("#search-input"); 
 
 fetchButton.addEventListener("click", async () => {
   try {
+    const query = searchInput.value.trim() || "funny cat";
+    const endpoint = `https://api.giphy.com/v1/gifs/search?api_key=tACXoZ7Sg3YwaD1NqcpLUkqSLcTQGDFu&q=${query}&limit=25&offset=0&rating=g&lang=en&bundle=messaging_non_clips`;
+
     const response = await fetch(endpoint);
     const data = await response.json();
     const images = data.data.map(gif => gif.images.original.url);
